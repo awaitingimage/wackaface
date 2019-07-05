@@ -8,19 +8,28 @@ let gridColumns = 4;
 let emptyGridAreas = [];
 let filledGridAreas = [];
 let gamePoints = 0;
-
 let gridElement = $("#grid");
+let interval;
 
-gridElement.css(
-  "grid-template",
-  `repeat(${gridRows}, 1fr) / repeat(${gridColumns}, 1fr)`
-);
+function gameSetup() {
+  gridRows = 4;
+  gridColumns = 4;
+  emptyGridAreas = [];
+  filledGridAreas = [];
+  gamePoints = 0;
 
-//grid-area: <name> | <row-start> / <column-start> / <row-end> / <column-end>;
-for (let column = 1; column <= gridColumns; column++) {
-  for (let row = 1; row <= gridRows; row++) {
-    emptyGridAreas.push(`${row} / ${column} / ${row} / ${column}`);
+  gridElement.css(
+    "grid-template",
+    `repeat(${gridRows}, 1fr) / repeat(${gridColumns}, 1fr)`
+  );
+
+  //grid-area: <name> | <row-start> / <column-start> / <row-end> / <column-end>;
+  for (let column = 1; column <= gridColumns; column++) {
+    for (let row = 1; row <= gridRows; row++) {
+      emptyGridAreas.push(`${row} / ${column} / ${row} / ${column}`);
+    }
   }
+  interval = setInterval(loop, 1500);
 }
 
 function loop() {
@@ -37,7 +46,7 @@ function loop() {
     filledGridAreas[filledGridAreas.length - 1].render(gridElement);
     emptyGridAreas.splice(gridAreaIndex, 1);
   }
-  $("#points").text(gamePoints);
+  $("#points").text("Points: " + gamePoints);
 }
 
 function die(gridArea, points) {
@@ -46,4 +55,13 @@ function die(gridArea, points) {
   filledGridAreas = filledGridAreas.filter(item => item.gridArea != gridArea);
 }
 
-setInterval(loop, 1000);
+function reset() {
+  console.log("asd");
+  clearInterval(interval);
+  filledGridAreas.forEach(item => item.removeWithoutKill());
+  setTimeout(gameSetup, 2000);
+}
+
+$("#reset").click($.proxy(reset, this));
+
+gameSetup();
