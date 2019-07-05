@@ -4,6 +4,8 @@ export default class Mole {
     this.callback = callback;
     this.type = "";
     this.hit = false;
+    this.timeAlive = 3000;
+    this.removeTime = 2000;
   }
 
   kill() {
@@ -11,7 +13,7 @@ export default class Mole {
     $(this.divElement).addClass("killed");
     this.hit = true;
 
-    setTimeout(this.remove.bind(this), 2000);
+    setTimeout(this.remove.bind(this), this.removeTime);
   }
 
   remove() {
@@ -22,19 +24,17 @@ export default class Mole {
   removeWithoutKill() {
     $(this.divElement).addClass("removed");
     if (!this.hit) this.points = 0;
-    setTimeout(this.remove.bind(this), 2000);
+    setTimeout(this.remove.bind(this), this.removeTime);
   }
 
   render(grid) {
     let svgElement = $(this.svg);
     svgElement.addClass("alive");
-    //svgElement.bind("click", { self: this }, this.kill);
     svgElement.click($.proxy(this.kill, this));
     this.divElement = $(`<div class="${this.type}"></div>`).append(svgElement);
     this.divElement.css("grid-area", this.gridArea);
-
     grid.append(this.divElement);
 
-    setTimeout(this.removeWithoutKill.bind(this), 3000);
+    setTimeout(this.removeWithoutKill.bind(this), this.timeAlive);
   }
 }

@@ -23,8 +23,18 @@ body {
 }
 
 #grid > div {
-  width: 100%;
+  /* width: 100%; */
   perspective: 1000px;
+}
+
+#grid > div > svg {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  #grid > div > svg {
+    width: 50%;
+  }
 }
 
 .alive {
@@ -56,12 +66,43 @@ body {
   }
 }
 
-.killed,
-.removed {
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.killed:not(.cake),
+.removed:not(.cake) {
   animation-duration: 2s;
   animation-name: flipOut;
   transform-origin: bottom;
   animation-fill-mode: forwards;
+}
+
+.cake {
+  animation-duration: 1s;
+  animation-name: fadeIn;
+  animation-fill-mode: forwards;
+}
+
+.cake.killed,
+.cake.removed {
+  animation-duration: 1s;
+  animation-name: fadeOut;
+  animation-direction: forwards;
 }
 
 .angry.killed {
