@@ -12,10 +12,14 @@ body {
   padding: 15px;
   box-sizing: border-box;
   display: grid;
+  grid-auto-rows: 1fr;
   /* grid-template: repeat(3, 1fr) / repeat(3, 1fr); */
+  height: 90vh;
+  width: 80vw;
   justify-items: center;
   align-items: center;
   grid-gap: 1%;
+  margin: 0px auto;
 }
 
 #grid > div {

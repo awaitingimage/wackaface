@@ -3,11 +3,13 @@ export default class Mole {
     this.gridArea = gridArea;
     this.callback = callback;
     this.type = "";
+    this.hit = false;
   }
 
   kill() {
     $(this.divElement).removeClass("alive");
     $(this.divElement).addClass("killed");
+    this.hit = true;
 
     setTimeout(this.remove.bind(this), 2000);
   }
@@ -19,7 +21,7 @@ export default class Mole {
 
   removeWithoutKill() {
     $(this.divElement).addClass("removed");
-    this.points = 0;
+    if (!this.hit) this.points = 0;
     setTimeout(this.remove.bind(this), 2000);
   }
 
