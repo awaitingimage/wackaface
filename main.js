@@ -38,9 +38,9 @@ function loop() {
     let randomNumber = Math.floor(Math.random() * 100);
     if (randomNumber <= 80) {
       filledGridAreas.push(new Angry(emptyGridAreas[gridAreaIndex], die));
-    } else if (randomNumber > 80 && randomNumber <= 97) {
+    } else if (randomNumber > 80 && randomNumber <= 96) {
       filledGridAreas.push(new Happy(emptyGridAreas[gridAreaIndex], die));
-    } else if (randomNumber > 97 && randomNumber <= 100) {
+    } else if (randomNumber > 96 && randomNumber <= 100) {
       filledGridAreas.push(new Cake(emptyGridAreas[gridAreaIndex], die));
     }
     filledGridAreas[filledGridAreas.length - 1].render(gridElement);
